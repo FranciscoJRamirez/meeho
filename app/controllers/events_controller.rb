@@ -60,7 +60,9 @@ class EventsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  def register
+    @event = Event.find(params[:id])
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
