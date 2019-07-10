@@ -46,4 +46,14 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to events_url
   end
+  test "get register form" do
+    get register_to_event_url(@event)
+    assert_response :success
+    assert_select "label", "Email"
+  end
+  test "submit register form" do
+    post register_user_url(@event), params: { email: "paco@gmail.com"}
+    assert_equal @event.users.last.email, "paco@gmail.com"
+    assert_response :redirect
+  end 
 end

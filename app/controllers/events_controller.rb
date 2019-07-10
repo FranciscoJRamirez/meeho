@@ -62,7 +62,22 @@ class EventsController < ApplicationController
   end
   def register
     @event = Event.find(params[:id])
+    @users_of_event = @event.users
   end
+
+  def register_user
+    set_event
+    email = params[:email]
+
+    user = User.where(email: email).take
+    if user.nil? || @event.users.include?(user)
+      redirect_to register_to_event_path(@event), notice: 'Imposible agregar usuario a evento'
+      return
+    end 
+
+    @event.users << user
+    redirect_to register_to_event_path(@event), notice: 'Usuario se guardo con exito'
+  end 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
