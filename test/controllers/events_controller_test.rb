@@ -16,6 +16,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create event" do
+    #@event.destroy
     assert_difference('Event.count') do
       post events_url, params: { event: { description: @event.description, end_date: @event.end_date, max_students: @event.max_students, name: @event.name, start_date: @event.start_date } }
     end
