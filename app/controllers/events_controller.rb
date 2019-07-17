@@ -1,5 +1,8 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event,      only: [:show, :edit, :update, :destroy, :register_user]
+  before_action :is_event_full?, only: :register_user
+  before_action :set_user,       only: :register_user
+  before_action :valid_email?,   only: :register_user
 
   # GET /events
   # GET /events.json
@@ -66,19 +69,31 @@ class EventsController < ApplicationController
   end
 
   def register_user
-    set_event
-    email = params[:email]
-
-    user = User.where(email: email).take
-    if user.nil? || @event.users.include?(user)
+    #set_event
+    
+    if @user.nil? || @event.users.include?(@user)
       redirect_to register_to_event_path(@event), notice: 'Imposible agregar usuario a evento'
       return
     end 
 
-    @event.users << user
+    @event.users << @user
     redirect_to register_to_event_path(@event), notice: 'Usuario se guardo con exito'
   end 
   private
+    def set_user
+      email = params[:email]
+      @user = User.where(email: email).take
+    end
+    def valid_email?
+      if params[:email].blank? || params[:email] !~ User::VALID_EMAIL_REGEX
+        redirect_to register_to_event_path(@event), notice: 'Debes especificar un correo eletrónico' 
+      end
+    end
+    def is_event_full?
+      if @event.is_full?
+        redirect_to register_to_event_path(@event), notice: 'El evento ya esta lleno'
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_event
       @event = Event.find(params[:id])
