@@ -2,8 +2,8 @@
 
 <h1>Users</h1>
 
-<table>
-  <thead>
+<table class='table'>
+  <thead class='thead-dark'>
     <tr>
       <th>Email</th>
       <th>First name</th>
@@ -20,9 +20,9 @@
         <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>
         <td><%= user.date_of_birth %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class='btn btn-light'><%= link_to 'Show', user %></td>
+        <td class='btn btn-light'><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td class='btn btn-danger'><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New User', new_user_path %>
+<button class='btn btn-dark'><%= link_to 'New User', new_user_path %></button>
