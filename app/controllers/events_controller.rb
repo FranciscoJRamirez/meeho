@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  
   before_action :set_event,      only: [:show, :edit, :update, :destroy, :register_user]
   before_action :is_event_full?, only: :register_user
   before_action :set_user,       only: :register_user
