@@ -67,3 +67,9 @@ es-MX:
         subject: 'Instrucciones de desbloqueo'
     views:
       log_in: 'Inicio de Sesión'
+      sign_in: Iniciar sesión
+      sign_up: Regístrarse
+      forgot_password: Restablecer contraseña
+      confirmation_instructions: Reenviar intrucciones de confirmación
+  validations:
+    minimum_characters: "%{minimum_characters} caracteres minimos"
